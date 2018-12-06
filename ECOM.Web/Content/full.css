@@ -1,0 +1,10 @@
+.full {
+    background: url('../Images/organic-1280538_1280.jpg') no-repeat center center fixed;
+    background: url('../Images/office-1377047_1280.jpg') no-repeat center center fixed;
+    background: url('../Images/relaxation-1388228_1280.jpg') no-repeat center center fixed;
+    background: url('../Images/typewriter-801921_1280.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}

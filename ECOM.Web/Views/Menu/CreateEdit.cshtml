@@ -1,0 +1,112 @@
+﻿@model ECOM.Web.ViewModels.MenuViewModels
+@{
+    ViewBag.Title = Model.Id == 0 ? "Create" : "Edit";
+}
+<div class="row wrapper border-bottom white-bg page-heading animated fadeInDown">
+    <div class="col-sm-4">
+        <h2>@ViewBag.Title </h2>
+        <ol class="breadcrumb">
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+@using (Ajax.BeginForm("CreateEdit", "Menu", new AjaxOptions
+{
+    OnSuccess = "OFrame.Ecom.Form.Success(data, this)",
+}, new { id = "form-business", role = "form",  title = ViewBag.Title, urlBack = Url.Action("Index") }))
+{
+    <div class="wrapper wrapper-content animated fadeInDown">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-pencil-square-o"></i> @ViewBag.Title</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="fullscreen-link">
+                                <i class="fa fa-expand"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                           
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-4 has-warning">
+                                <div class="form-group">
+                                    <label>@Html.LabelFor(model => model.Titulo, new { @class = "font-normal" })</label>
+                                    @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Titulo)
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group has-warning">
+                                    <label>@Html.LabelFor(model => model.Area, new { @class = "font-normal" })</label>
+                                    @Html.TextBoxFor(model => model.Area, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Area)
+                                </div>
+                            </div>
+                            <div class="col-sm-4 has-warning">
+                                <div class="form-group">
+                                    <label>@Html.LabelFor(model => model.Controller, new { @class = "font-normal" })</label>
+                                    @Html.TextBoxFor(model => model.Controller, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Controller)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                           
+                            <div class="col-sm-4 has-warning">
+                                <div class="form-group">
+                                    <label>@Html.LabelFor(model => model.Action, new { @class = "font-normal" })</label>
+                                    @Html.TextBoxFor(model => model.Action, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Action)
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group has-warning">
+                                    <label>@Html.LabelFor(model => model.Descricao, new { @class = "font-normal" })</label>
+                                    @Html.TextBoxFor(model => model.Descricao, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Descricao)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <button class="btn btn-success" type="submit" accesskey="s">
+                                    <i class="fa fa-save"></i>
+                                    <span class="bold">SALVAR</span>
+                                </button>
+                                <button class="btn btn-outline btn-danger" accesskey="c" type="button" onclick="location.href='@Url.Action("Index", "Menu")'">
+                                    <span class="bold">CANCELAR</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+        });
+
+    });
+
+</script>

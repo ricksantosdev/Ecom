@@ -1,0 +1,57 @@
+﻿@using System.Security.Claims;
+@using ECOM.Web.Helpers;
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    @*<span>
+                        <img alt="image" class="img-circle" src="data:image/png;base64," style="width:64px; height:64px;" onclick="OFrame.ECOM.OpenAjaxUrl('@Url.Action("Index", "UserPreferences", new { area="BIP"})')" ;" />
+                    </span>*@
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold"></strong>
+                            </span> <span class="text-muted text-xs block font-bold"> <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInDown m-t-xs">
+                        <li><a href=""></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" onclick="window.location.href='@Url.Action("Logout", "Login")'"> STORE </a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    <div class="visible-xs">
+                        &nbsp;&nbsp;
+                    </div>
+                    <div class="hidden-xs">
+                        
+                    </div>
+                </div>
+            </li>
+
+            @{
+                var menuList = MenuHelper.GetMenu();
+
+                foreach (var item in menuList)
+                {
+                <li>
+                    <a href="@Url.Action(item.Action , item.Controller)">
+                        <i class="fa"></i>
+                        <span class="nav-label">@item.Titulo</span>
+                    </a>
+
+                </li>
+                }
+            }
+
+        </ul>
+    </div>
+</nav>
+
+<script type="text/javascript">
+
+</script>
+

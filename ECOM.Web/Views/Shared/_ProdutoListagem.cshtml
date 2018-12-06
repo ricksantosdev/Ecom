@@ -1,0 +1,17 @@
+﻿@model List<ECOM.Web.ViewModels.ProdutoViewModel> 
+<ul class="thumbnails">
+
+    @foreach (var item in Model)
+    {
+        <li class="span3">
+            <div class="thumbnail">
+                <a href="@Url.Action("Detalhe","ProdutoStore" , new { id = item.Id })"><img src="@item.ImgVisual1" alt=""></a>
+                <div class="caption">
+                    <h5>@item.Nome</h5>
+                    <h4><a class="btn" href="@Url.Action("Detalhe","ProdutoStore" , new { id = item.Id })">VISUALIZAR</a> <span class="pull-right">@item.Preco.ToString() </span></h4>
+                </div>
+            </div>
+        </li>
+    }
+
+</ul>

@@ -1,0 +1,280 @@
+﻿@model ECOM.Web.ViewModels.ProdutoViewModel
+@using ECOM.Web.Helpers
+
+@{
+    ViewBag.Title = Model.Id == 0 ? "Create" : "Edit";
+}
+<div class="row wrapper border-bottom white-bg page-heading animated fadeInDown">
+    <div class="col-sm-4">
+        <h2>@ViewBag.Title </h2>
+        <ol class="breadcrumb">
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+@using (Ajax.BeginForm("CreateEdit", "Produto", new AjaxOptions
+{
+    OnSuccess = "OFrame.Ecom.Form.Success(data, this)",
+}, new { id = "form-business", role = "form", title = ViewBag.Title, urlBack = Url.Action("Index"), enctype = "multipart/form-data" }))
+
+{
+    <div class="wrapper wrapper-content animated fadeInDown">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-pencil-square-o"></i> @ViewBag.Title</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="fullscreen-link">
+                                <i class="fa fa-expand"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bars"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-4 has-warning">
+                                <div class="form-group">
+                                    <label>@Html.LabelFor(model => model.Nome, new { @class = "font-normal" })</label>
+                                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Nome)
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 has-warning">
+                                <div class="form-group">
+                                    <label>@Html.LabelFor(model => model.Descricao, new { @class = "font-normal" })</label>
+                                    @Html.TextBoxFor(model => model.Descricao, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Descricao)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 has-warning">
+                                <div class="form-group">
+                                    <label>@Html.Label("Categorias", new { @class = "font-normal" })</label>
+
+                                    @Html.DropDownListFor(model => model.CategoriaProdutoId, Model.Categorias, new { id = "drop-cat", @class = "form-control" })
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>@Html.Label("Fornecedores", new { @class = "font-normal" })</label>
+                                    @Html.DropDownListFor(model => model.FornecedorId, Model.Fornecedores, new { id = "drop-for", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group has-warning">
+                                    <label>@Html.LabelFor(model => model.Disponivel, new { @class = "font-normal" })</label>
+                                    @Html.CheckBoxFor(model => model.Disponivel, new { @class = "form-control checkbox i-checks" })
+                                    @Html.ValidationMessageFor(model => model.Disponivel)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group has-warning">
+                                    <div class="profile-image">
+                                        @{
+                                            if (!String.IsNullOrEmpty(Model.ImgVisual1))
+                                            {
+                                                <img src="@Model.ImgVisual1" class="m-b-md" alt="profile" id="img1">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Images/no-img.png" class=" m-b-md" alt="profile" id="img1">
+                                            }
+                                        }
+                                        <div class="" style="width:250px">
+                                            <label>Selecione imagem</label>
+                                            <input type="file" id="image1" name="image1" onchange="visualizarImage(event , '#img1')" data-btnClass="btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="button" class="browse btn btn-danger input-lg" id="btnDeleteImg1" value="DELETE IMAGEM" style="width: 78%" />
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group has-warning">
+                                    <div class="profile-image">
+                                        @{
+                                            if (!String.IsNullOrEmpty(Model.ImgVisual2))
+                                            {
+                                                <img src="@Model.ImgVisual2" class=" m-b-md" alt="profile" id="img2">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Images/no-img.png" class=" m-b-md" alt="profile" id="img2">
+                                            }
+                                        }
+                                        <div class="" style="width:250px">
+                                            <label>Selecione imagem</label>
+                                            <input type="file" id="image2" name="image2" class="form-control-file" onchange="visualizarImage(event , '#img2')" data-btnClass="btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="button" class="browse btn btn-danger input-lg" id="btnDeleteImg2" value="DELETE IMAGEM" style="width: 78%" />
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group has-warning">
+                                    <div class="profile-image">
+                                        @{
+                                            if (!String.IsNullOrEmpty(Model.ImgVisual3))
+                                            {
+                                                <img src="@Model.ImgVisual3" class=" m-b-md" alt="profile" id="img3">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Images/no-img.png" class=" m-b-md" alt="profile" id="img3">
+                                            }
+                                        }
+                                        <div class="" style="width:250px">
+                                            <label>Selecione imagem</label>
+                                            <input type="file" id="image3" name="image3" class="form-control-file" onchange="visualizarImage(event , '#img3')" data-btnClass="btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="button" class="browse btn btn-danger input-lg" id="btnDeleteImg3" value="DELETE IMAGEM" style="width: 78%" />
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group has-warning">
+                                    <div class="profile-image">
+                                        @{
+                                            if (!String.IsNullOrEmpty(Model.ImgVisual4))
+                                            {
+                                                <img src="@Model.ImgVisual4" class=" m-b-md" alt="profile" id="img4">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Images/no-img.png" class=" m-b-md" alt="profile" id="img4">
+                                            }
+                                        }
+                                        <div class="" style="width:250px">
+                                            <label>Selecione imagem</label>
+                                            <input type="file" id="image4" name="image4" class="form-control-file" onchange="visualizarImage(event , '#img4')" data-btnClass="btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="button" class="browse btn btn-danger input-lg" id="btnDeleteImg4" value="DELETE IMAGEM" style="width: 78%" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12"></div>
+                            <br />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <button class="btn btn-success" type="submit" accesskey="s">
+                                    <i class="fa fa-save"></i>
+                                    <span class="bold">SALVAR</span>
+                                </button>
+                                <button class="btn btn-outline btn-danger" accesskey="c" type="submit" onclick="location.href='@Url.Action("Index", "Produto")'">
+                                    <span class="bold">CANCELAR</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#drop-cat').select2({ width: '100%' });
+        $('#drop-for').select2({ width: '100%' });
+
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+        });
+        $(':file').filestyle({
+            btnClass: "btn-primary",
+            buttonText: ' Open'
+        });
+
+        $('.m-b-md').css('width', '250');
+
+        //window.addEventListener("submit", function (e) {
+        //    var form = e.target;
+        //    if (form.getAttribute("enctype") === "multipart/form-data") {
+        //        if (form.dataset.ajax) {
+        //            e.preventDefault();
+        //            e.stopImmediatePropagation();
+        //            var xhr = new XMLHttpRequest();
+        //            xhr.open(form.method, form.action);
+        //            xhr.setRequestHeader("x-Requested-With", "XMLHttpRequest"); // this allows 'Request.IsAjaxRequest()' to work in the controller code
+        //            xhr.onreadystatechange = function () {
+        //                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        //                    var data; //this variable needs to be named the same as the parameter in the function call specified for the AjaxOptions.OnSuccess
+        //                    try {
+        //                        data = JSON.parse(xhr.responseText); //I also want my returned data to be parsed if it is a JSON object
+        //                    } catch (e) {
+        //                        data = xhr.responseText;
+        //                    }
+        //                    if (form.dataset.ajaxSuccess) {
+        //                        eval(form.dataset.ajaxSuccess); //converts function text to real function and executes (not very safe though)
+        //                    }
+        //                    else if (form.dataset.ajaxFailure) {
+        //                        eval(form.dataset.ajaxFailure);
+        //                    }
+        //                    if (form.dataset.ajaxUpdate) {
+        //                        var updateTarget = document.querySelector(form.dataset.ajaxUpdate);
+        //                        if (updateTarget) {
+        //                            updateTarget.innerHTML = data;
+        //                        }
+        //                    }
+        //                }
+        //            };
+        //            xhr.send(new FormData(form));
+        //        }
+        //    }
+        //}, true);
+
+
+        $('#btnDeleteImg4').click(function (event) {
+            $('#img4').attr('src', '/Images/no-img.png');
+            $('#image4').filestyle('clear');
+        });
+        $('#btnDeleteImg3').click(function (event) {
+            $('#img3').attr('src', '/Images/no-img.png');
+            $('#image3').filestyle('clear');
+        });
+        $('#btnDeleteImg2').click(function (event) {
+            $('#img2').attr('src', '/Images/no-img.png');
+            $('#image2').filestyle('clear');
+        });
+        $('#btnDeleteImg1').click(function (event) {
+            $('#img1').attr('src', '/Images/no-img.png');
+            $('#image1').filestyle('clear');
+        });
+
+    });
+
+    function visualizarImage(event, nmimage) {
+        event.preventDefault();
+        var imagem = document.querySelector(nmimage);
+        imagem.src = URL.createObjectURL(event.target.files[0]);
+    }
+    function deleteImg(nm, ev) {
+        ev.preventDefault();
+        $(nm).val('');
+    }
+
+</script>

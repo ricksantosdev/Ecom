@@ -1,0 +1,81 @@
+﻿<div class="row border-bottom" id="top-nav">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <button class="btn btn-circle btn-default pull-left" id="button-back" title="">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <form role="search" class="navbar-form-custom" method="post" action="">
+                <div class="form-group">
+                    <input type="text" placeholder="" class="form-control" name="top-search" id="top-search" accesskey="p">
+                </div>
+            </form>
+        </div>
+        <div class="navbar-header">
+            <button class="btn btn-success btn-sm" id="button-find">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <ul class="nav navbar-top-links navbar-right hidden-xs pull-right" style="margin-top: 5px;">
+            <li>
+                <h3 class="list-group-item-heading">ECOM - área administrativa</h3>
+            </li>
+            @*<li>
+                <a href="#" onclick="window.location.href='@Url.Action("Logout", "Login", new { area=""})'">
+                    <i class="fa fa-sign-out"></i>
+                </a>
+            </li>*@
+        </ul>
+        <ul class="nav navbar-top-links navbar-right visible-xs pull-right" style="margin-top: 5px;">
+
+            <li>
+                <a href="#" onclick="window.location.href='@Url.Action("Logout", "Login", new { area=""})'">
+                    <i class="fa fa-sign-out"></i> 
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/vendorFlags")
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#top-search').on('input', function () {
+
+            if ($('#top-search').val() != '') {
+                $('#button-find').show();
+            }
+            else {
+                $('#button-find').hide();
+            }
+
+        });
+
+        $("#top-search").on("keydown", function (event) {
+
+            if (event.which == 13) {
+                findPage();
+                event.preventDefault();
+            }
+        });
+
+        $('#button-find').on('click', function (event) {
+            findPage();
+            event.preventDefault();
+        });
+
+
+       
+
+    });
+
+
+
+</script>
+
+
